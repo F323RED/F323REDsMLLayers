@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "F323REDsMLLayers", "F323REDsMLLayers\F323REDsMLLayers.pyproj", "{38CC2F66-7BD7-41FB-945F-94CA45156C34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38CC2F66-7BD7-41FB-945F-94CA45156C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38CC2F66-7BD7-41FB-945F-94CA45156C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0D0B15C-0C47-41E7-B6CD-D2D2A44E787F}
+	EndGlobalSection
+EndGlobal
