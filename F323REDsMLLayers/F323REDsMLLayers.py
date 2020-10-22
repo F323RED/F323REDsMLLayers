@@ -1,3 +1,9 @@
+"""
+Author : F323RED
+Date : 2020/10/22
+Describe : A set of common layers use by machine learning with backward propagation
+"""
+
 import numpy as np
 
 class AddLayer :
@@ -64,7 +70,7 @@ class SigmoidLayer():
         self.y = None
 
     def Forward(self, x):
-        y = 1 / (1 + np.exp(x))
+        y = 1 / (1 + np.exp(np.minimum(x, 70)))
         self.y = y.copy()
 
         return y
@@ -75,22 +81,25 @@ class SigmoidLayer():
         return dx
 
 class AffineLayer:      # Matrix A dot B
-    def __init__(self):
+    def __init__(self, W, b):
+        self.W = W
+        self.b = b
         self.x = None
-        self.w = None
+        self.dW = None
+        self.db = None
 
-    def Forward(self, x, w):
+    def Forward(self, x):
         self.x = x.copy()
-        self.w = w.copy()
-        y = np.dot(x, w)
+        y = np.dot(x, self.W) + self.b
 
         return y
 
     def Backward(self, dout):
-        dx = np.dot(dout, self.w.T)
-        dw = np.dot(self.x.T, dout)
+        dx = np.dot(dout, self.W.T)
+        self.dW = np.dot(self.x.T, dout)
+        self.db = np.sum(dout, axis=0)
 
-        return dx, dw
+        return dx
 
 class SoftmaxAndLossLayer:
     def __init__(self):
@@ -132,26 +141,3 @@ def CrossEntropyError(y, t) :
 
     # Less is better.
     return -np.sum(t * np.log(y + 1e-4))  / y.shape[0]
-
-
-# Debug
-#layer1 = AffineLayer()
-#layer2 = AddLayer()
-#layer3 = SoftmaxAndLossLayer()
-
-#x = np.array([[1.0, 2.0], [-3.0, 4.0]])
-#W1 = np.array([[1.0, 1.2, 3.7], [2.0, -0.8, -1.2]])
-#b1 = np.array([1.0, 2.0,-1.0])
-#t = np.array([1.0, 0.0, 0.0])
-
-#z1 = layer2.Forward(layer1.Forward(x, W1), b1)
-#y = layer3.Forward(z1, t)
-
-#dz1 = layer3.Backward()
-#db1, dxw = layer2.Backward(dz1)
-#dx, dw1 = layer1.Backward(dxw)
-
-#print("y :", y)
-#print("dx :", dx)
-#print("dw1 :", dw1)
-#print("db1 :", db1)
