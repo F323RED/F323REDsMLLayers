@@ -54,7 +54,7 @@ class LeakReLULayer :
         self.xMask = None
 
     def Forward(self, x):
-        self.xMask = (x <= 0)
+        self.xMask = (x < 0)
         y = x.copy()
         y[self.xMask] *= 0.1
 
@@ -62,6 +62,25 @@ class LeakReLULayer :
 
     def Backward(self, dout):
         dout[self.xMask] *= 0.1
+
+        return dout
+
+class ELULayer :
+    def __init__(self):
+        self.xMask = None
+        self.expX = None
+        self.alpha = 0.1
+
+    def Forward(self, x):
+        self.xMask = (x < 0)
+        y = x.copy()
+        self.expX = np.exp(y[self.xMask])
+        y[self.xMask] = self.alpha * (self.expX - 1)
+
+        return y
+
+    def Backward(self, dout):
+        dout[self.xMask] *= (self.alpha * self.expX)
 
         return dout
 
