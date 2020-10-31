@@ -61,7 +61,7 @@ class LeakReLULayer :
         return y
 
     def Backward(self, dout):
-        dout[self.xMask] = 0.1
+        dout[self.xMask] *= 0.1
 
         return dout
 
